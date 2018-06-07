@@ -31,12 +31,14 @@ const TableLoad = ({
   productsMaxSumTotal,
   productsMinSumTotal,
   searchTerm,
-  sortBy
+  sortBy,
+  sortStatus
 }) => {
   const isSearched = searchTerm => item => {
     return item.toLowerCase().includes(searchTerm.toLowerCase());
   };
   const data = tableData.map(el => el.bannersName);
+
   return (
     <div className="tableLoad">
       <table>
@@ -44,12 +46,27 @@ const TableLoad = ({
           <tr>
             <th>Name</th>
             <th onClick={() => sortBy("productsMaxSum")} className="taright">
+              <i
+                className={`fa fa-${
+                  sortStatus.productsMaxSum === "asc" ? "sort-up" : "sort-down"
+                }`}
+              />
               Max Price
             </th>
             <th onClick={() => sortBy("productsAverage")} className="taright">
+              <i
+                className={`fa fa-${
+                  sortStatus.productsAverage === "asc" ? "sort-up" : "sort-down"
+                }`}
+              />
               Average Price
             </th>
             <th onClick={() => sortBy("productsMinSum")} className="taright">
+              <i
+                className={`fa fa-${
+                  sortStatus.productsMinSum === "asc" ? "sort-up" : "sort-down"
+                }`}
+              />
               Min Price
             </th>
           </tr>

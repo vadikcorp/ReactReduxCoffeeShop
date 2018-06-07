@@ -18,12 +18,8 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "build": "yarn sass:build && react-scripts build",
-    "eject": "react-scripts eject",
-    "sass:watch": "node-sass -w src/styles/scss -o src/styles/css",
-    "sass:build":
-      "node-sass src/styles/scss -o src/styles/css --source-map true",
-    "start": "yarn run sass:build && react-scripts start",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

@@ -12,11 +12,12 @@ const Select = ({ style, className, value, name, onChange, arrWeek }) => {
       <option style={style} className={className}>
         Select
       </option>
-      {arrWeek[0].map((el, i) => (
-        <option style={style} className={className} key={i} value={el}>
-          {el}
-        </option>
-      ))}
+      {arrWeek[0] &&
+        arrWeek[0].map((el, i) => (
+          <option style={style} className={className} key={i} value={el}>
+            {el}
+          </option>
+        ))}
     </select>
   );
 };
@@ -42,7 +43,6 @@ const SelectForm = ({
     color: "#504dd4",
     marginRight: "10px"
   };
-
   const refreshData = () => {
     // concat P to the name of variale, couz warnings in console
     let productPriceWeekP = productPriceWeek;
@@ -63,10 +63,7 @@ const SelectForm = ({
       (el, i) => (el.pricingDataByWeek = returnData[i])
     );
     storeProductsData(dataP, newData);
-    // @@ setvalue picker - look at previous project(with react) _ imo: i dont need that here @@
-    // setValuePicker(valueFrom, valueTo);
   };
-  const arrWeek = currProductPriceWeek;
   return (
     <div className="dataPicker">
       <label>
@@ -77,7 +74,7 @@ const SelectForm = ({
           value={valueFrom}
           name="valueFrom"
           onChange={handleChange}
-          arrWeek={arrWeek}
+          arrWeek={currProductPriceWeek}
         />
         <span style={styles}> To: </span>
         <Select
@@ -86,7 +83,7 @@ const SelectForm = ({
           value={valueTo}
           name="valueTo"
           onChange={handleChange}
-          arrWeek={arrWeek}
+          arrWeek={currProductPriceWeek}
         />
       </label>
       <button

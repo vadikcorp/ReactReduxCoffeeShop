@@ -36,86 +36,6 @@ class CreateReport extends React.Component {
     this._emailInputStatusBtn = this._emailInputStatusBtn.bind(this);
   }
 
-  _handleRemoveItems(index) {
-    this.props.removeItems(index);
-  }
-
-  _handleRemoveEmailItems(index) {
-    this.props.removeEmailItems(index);
-  }
-
-  _handleRemoveStateItem(index) {
-    this.props.removeStateItem(index);
-  }
-
-  _handleChange(e) {
-    this.props.handleChange(e);
-  }
-
-  _handleStateKeyDown(e) {
-    if (e.keyCode === 13) {
-      this.props.addItem(e);
-      this.props.clearInputItem(e);
-    }
-  }
-  _handleInputKeyDown(e) {
-    if (e.keyCode === 13) {
-      this.props.addItem(e);
-      this.props.clearInputItem(e);
-    }
-    if (e.keyCode === 8) {
-      this.props.backspace(e);
-    }
-  }
-
-  _handleEmailInputKeyDown(e) {
-    // PROBLEM
-    if (e.keyCode === 13) {
-      this.props.addItem(e);
-      this.props.clearInputItem(e);
-      this.props.emailInputStatusBtn();
-    }
-    if (e.keyCode === 8) {
-      this.props.backspace(e);
-    }
-  }
-
-  _onActiveClassName(index) {
-    let copy = this.props.createReport.isButtonActive.slice();
-    copy[index].isActive = !copy[index].isActive;
-    this.props.isButtonActive(copy);
-  }
-
-  _emailInputStatusBtn() {
-    this.props.emailInputStatusBtn();
-  }
-
-  _sendReport(email, product, data, valueFrom, valueTo) {
-    fetch("http://159.89.106.160/products/sendemail", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-
-      body: JSON.stringify({
-        to: email,
-        product: product,
-        dates: `${valueFrom} ${valueTo}`,
-        data: data.map((el, i) => {
-          return {
-            name: data[i].bannersName,
-            max: data[i].productsMaxSum,
-            min: data[i].productsMinSum
-          };
-        })
-      })
-    })
-      .then(response => response.json())
-      .then(response => {
-        console.log(response);
-      });
-  }
-
   render() {
     const {
       product,
@@ -174,6 +94,87 @@ class CreateReport extends React.Component {
       </div>
     );
   }
+
+  _handleRemoveItems(index) {
+    this.props.removeItems(index);
+  }
+
+  _handleRemoveEmailItems(index) {
+    this.props.removeEmailItems(index);
+  }
+
+  _handleRemoveStateItem(index) {
+    this.props.removeStateItem(index);
+  }
+
+  _handleChange(e) {
+    this.props.handleChange(e);
+  }
+
+  _handleStateKeyDown(e) {
+    if (e.keyCode === 13) {
+      this.props.addItem(e);
+      this.props.clearInputItem(e);
+    }
+  }
+  _handleInputKeyDown(e) {
+    if (e.keyCode === 13) {
+      this.props.addItem(e);
+      this.props.clearInputItem(e);
+    }
+    if (e.keyCode === 8) {
+      this.props.backspace(e);
+    }
+  }
+
+  _handleEmailInputKeyDown(e) {
+    // PROBLEM
+    if (e.keyCode === 13) {
+      this.props.addItem(e);
+      this.props.clearInputItem(e);
+      this.props.emailInputStatusBtn();
+    }
+    if (e.keyCode === 8) {
+      this.props.backspace(e);
+    }
+  }
+
+  _onActiveClassName(index) {
+    let copy = this.props.createReport.isButtonActive.slice();
+    copy[index].isActive = !copy[index].isActive;
+    this.props.isButtonActive(copy);
+  }
+
+  _emailInputStatusBtn() {
+    this.props.emailInputStatusBtn();
+  }
+
+  _sendReport(email, product, data, valueFrom, valueTo, handleReport) {
+    fetch("http://159.89.106.160/products/sendemail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        to: email,
+        product: product,
+        dates: `${valueFrom} ${valueTo}`,
+        data: data.map((el, i) => {
+          return {
+            name: data[i].bannersName,
+            max: data[i].productsMaxSum,
+            min: data[i].productsMinSum
+          };
+        })
+      })
+    })
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+      });
+    handleReport();
+  }
 }
 
 const mapStateToProps = state => ({
@@ -195,4 +196,7 @@ const mapDispatchToProps = dispatch =>
     },
     dispatch
   );
-export default connect(mapStateToProps, mapDispatchToProps)(CreateReport);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreateReport);

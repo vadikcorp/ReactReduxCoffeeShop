@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class ProductHeader extends Component {
-  render() {
-    return (
-      <p className="hero_header">
-        <span className="hero_name">{this.props.product}</span>
-      </p>
-    );
-  }
-}
+const ProductHeader = ({ product }) => {
+  return (
+    <p className="hero_header">
+      <span className="hero_name">{product}</span>
+    </p>
+  );
+};
+
+export default ProductHeader;

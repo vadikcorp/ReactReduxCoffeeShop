@@ -17,7 +17,14 @@ const BtnFooter = ({
       <button
         className="btn"
         onClick={() =>
-          sendReport(emailItems, product, tableData, valueFrom, valueTo)
+          sendReport(
+            emailItems,
+            product,
+            tableData,
+            valueFrom,
+            valueTo,
+            handleReport
+          )
         }
       >
         Create

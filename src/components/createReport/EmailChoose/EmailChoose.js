@@ -11,7 +11,9 @@ const EmailChoose = ({
 }) => {
   return (
     <div className="field_block">
-      <p className="field_head_p">Email</p>
+      <p className="field_head_p">
+        Email <small>(required)</small>
+      </p>
       <label>
         <ul>
           {emailItems.map((item, i) => (
